@@ -1,0 +1,36 @@
+# Application configuration
+app:
+  name: "REC0NBUBBLE"
+  environment: "development"  # development or production
+  port: 8080
+
+# Security settings
+security:
+  rate_limit:
+    requests: 10          # Number of requests allowed
+    per_minute: 1         # Time window in minutes
+    captcha_fails: 4      # Number of captcha fails before blocking
+    block_duration: 15    # Block duration in minutes
+  captcha:
+    enabled: true        # Set to false to disable captcha
+    max_difficulty: 5
+    fails_per_level: 2
+  session:
+    cookie_secret: ${COOKIE_SECRET}  # Set via environment variable
+    max_age: 3600
+    secure: true
+    http_only: true
+    same_site: "lax"  # strict, lax, or none
+
+# Template settings
+templates:
+  directory: "web/templates"
+
+# Static files
+static:
+  directory: "static"
+
+# Logging
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "text" # text or json

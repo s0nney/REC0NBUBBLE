@@ -1,0 +1,685 @@
+/* Import Chakra Petch font */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600&display=swap');
+
+/* Base styles */
+:root {
+    --primary: #00ffd9;
+    --secondary: #ff0055;
+    --background: #111010;
+    --surface: #1a1a24;
+    --text: #e0e0e0;
+    --text-dim: #808080;
+    --border: #2a2a35;
+    --glow: 0 0 10px rgba(0, 255, 217, 0.2);
+}
+
+body {
+    font-family: 'Chakra Petch', monospace;
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Container styles */
+.container,
+.results-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Headings */
+h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    word-wrap: break-word;
+    margin-bottom: 2rem;
+    text-shadow: var(--glow);
+}
+
+/* Glitch effect */
+.glitch {
+    position: relative;
+    text-shadow: 0.02em 0 0 var(--primary),
+        -0.02em -0.02em 0 var(--secondary),
+        0.02em 0.02em 0 #0ff;
+    animation: glitch 3s infinite, float 6s ease-in-out infinite;
+    transform-origin: center;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    display: inline-block;
+}
+
+.glitch span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch span:first-child {
+    animation: glitch 650ms infinite, tilt-1 4s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-0.025em, -0.0125em);
+    opacity: 0.75;
+}
+
+.glitch span:last-child {
+    animation: glitch 375ms infinite, tilt-2 4s infinite;
+    clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+    transform: translate(0.0125em, 0.025em);
+    opacity: 0.75;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 var(--primary),
+            -0.05em -0.025em 0 var(--secondary),
+            -0.025em 0.05em 0 #0ff;
+    }
+
+    14% {
+        text-shadow: 0.05em 0 0 var(--primary),
+            -0.05em -0.025em 0 var(--secondary),
+            -0.025em 0.05em 0 #0ff;
+    }
+
+    15% {
+        text-shadow: -0.05em -0.025em 0 var(--primary),
+            0.025em 0.025em 0 var(--secondary),
+            -0.05em -0.05em 0 #0ff;
+    }
+
+    49% {
+        text-shadow: -0.05em -0.025em 0 var(--primary),
+            0.025em 0.025em 0 var(--secondary),
+            -0.05em -0.05em 0 #0ff;
+    }
+
+    50% {
+        text-shadow: 0.025em 0.05em 0 var(--primary),
+            0.05em 0 0 var(--secondary),
+            0 -0.05em 0 #0ff;
+    }
+
+    99% {
+        text-shadow: 0.025em 0.05em 0 var(--primary),
+            0.05em 0 0 var(--secondary),
+            0 -0.05em 0 #0ff;
+    }
+
+    100% {
+        text-shadow: -0.025em 0 0 var(--primary),
+            -0.025em -0.025em 0 var(--secondary),
+            -0.025em -0.05em 0 #0ff;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}
+
+@keyframes tilt-1 {
+
+    0%,
+    100% {
+        transform: translate(-0.025em, -0.0125em) rotate(-1deg);
+    }
+
+    25% {
+        transform: translate(-0.025em, -0.0125em) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-0.025em, -0.0125em) rotate(-0.5deg);
+    }
+
+    75% {
+        transform: translate(-0.025em, -0.0125em) rotate(0.5deg);
+    }
+}
+
+@keyframes tilt-2 {
+
+    0%,
+    100% {
+        transform: translate(0.0125em, 0.025em) rotate(1deg);
+    }
+
+    25% {
+        transform: translate(0.0125em, 0.025em) rotate(-1deg);
+    }
+
+    50% {
+        transform: translate(0.0125em, 0.025em) rotate(0.5deg);
+    }
+
+    75% {
+        transform: translate(0.0125em, 0.025em) rotate(-0.5deg);
+    }
+}
+
+/* Enhanced glow effect */
+h1.glitch {
+    color: var(--text);
+    font-weight: 600;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 217, 0.4));
+    max-width: 800px;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Search form */
+.scan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.scan-form input[type="text"],
+.scan-form button {
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.scan-form input[type="text"] {
+    padding: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Chakra Petch', monospace;
+    transition: all 0.3s ease;
+}
+
+.scan-form input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: var(--glow);
+}
+
+
+.scan-form input[type="number"] {
+    padding: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Chakra Petch', monospace;
+    transition: all 0.3s ease;
+}
+
+.scan-form input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: var(--glow);
+}
+
+.scan-form button {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 12px 24px;
+    font-family: 'Chakra Petch', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.scan-form button:hover {
+    background: var(--primary);
+    color: var(--background);
+    box-shadow: var(--glow);
+}
+
+/* Results sections */
+.section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin: 20px 0;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--primary);
+    box-shadow: var(--glow);
+}
+
+.section h2 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+/* Result rows */
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.result-label {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.result-value {
+    color: var(--text);
+}
+
+/* Status indicators */
+.present {
+    color: var(--primary);
+}
+
+.missing {
+    color: var(--secondary);
+}
+
+/* WAF type badge */
+.waf-type {
+    background: var(--surface);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 2px 8px;
+    font-size: 0.9rem;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--text);
+    text-shadow: var(--glow);
+}
+
+/* Details text */
+.details {
+    font-family: 'Chakra Petch', monospace;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    background: var(--background);
+    padding: 4px 8px;
+    border-radius: 2px;
+}
+
+/* Error message */
+.error {
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Home Page Specific Styles */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scan-form-container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+}
+
+.scan-form-container h1 {
+    margin-bottom: 2rem;
+    color: #88ea85;
+    ;
+    font-size: 2.5rem;
+    border-bottom: none;
+}
+
+/* Desktop adjustments */
+@media screen and (min-width: 768px) {
+    .glitch span:first-child {
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        transform: translate(-0.025em, -0.0125em) scale(1);
+        animation: glitch 650ms infinite, tilt-1 4s infinite;
+    }
+
+    .glitch span:last-child {
+        clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+        transform: translate(0.0125em, 0.025em) scale(1);
+        animation: glitch 375ms infinite, tilt-2 4s infinite;
+    }
+
+    /* Adjust animation values for larger screens */
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(-0.5deg) scale(1);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(0.5deg) scale(1);
+        }
+    }
+
+    @keyframes tilt-1 {
+
+        0%,
+        100% {
+            transform: translate(-0.015em, -0.0125em) rotate(-0.5deg);
+        }
+
+        50% {
+            transform: translate(-0.015em, -0.0125em) rotate(0.5deg);
+        }
+    }
+
+    @keyframes tilt-2 {
+
+        0%,
+        100% {
+            transform: translate(0.015em, 0.0125em) rotate(0.5deg);
+        }
+
+        50% {
+            transform: translate(0.015em, 0.0125em) rotate(-0.5deg);
+        }
+    }
+
+    @keyframes glitch {
+        0% {
+            text-shadow: 0.025em 0 0 var(--primary),
+                -0.025em -0.025em 0 var(--secondary),
+                0.025em 0.025em 0 #0ff;
+        }
+
+        14% {
+            text-shadow: 0.025em 0 0 var(--primary),
+                -0.025em -0.025em 0 var(--secondary),
+                0.025em 0.025em 0 #0ff;
+        }
+
+        15% {
+            text-shadow: -0.025em -0.0125em 0 var(--primary),
+                0.0125em 0.025em 0 var(--secondary),
+                -0.025em -0.025em 0 #0ff;
+        }
+
+        49% {
+            text-shadow: -0.025em -0.0125em 0 var(--primary),
+                0.0125em 0.025em 0 var(--secondary),
+                -0.025em -0.025em 0 #0ff;
+        }
+
+        50% {
+            text-shadow: 0.0125em 0.025em 0 var(--primary),
+                0.025em 0 0 var(--secondary),
+                0 -0.025em 0 #0ff;
+        }
+
+        99% {
+            text-shadow: 0.0125em 0.025em 0 var(--primary),
+                0.025em 0 0 var(--secondary),
+                0 -0.025em 0 #0ff;
+        }
+
+        100% {
+            text-shadow: -0.0125em 0 0 var(--primary),
+                -0.0125em -0.0125em 0 var(--secondary),
+                -0.0125em -0.025em 0 #0ff;
+        }
+    }
+}
+
+/* Waifu styles */
+.waifu-container {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto -30px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.waifu {
+    width: 100%;
+    height: auto;
+    animation: float-waifu 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+    border: 2px solid white;
+    border-radius: 100px;
+}
+
+@keyframes float-waifu {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Adjust header to work with mascot */
+h1.glitch {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+}
+
+.captcha-container {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+}
+
+.captcha-problem {
+    margin-bottom: 15px;
+    font-family: 'Chakra Petch', monospace;
+    color: var(--text);
+}
+
+.captcha-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.captcha-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.captcha-option input[type="radio"] {
+    cursor: pointer;
+}
+
+.captcha-option label {
+    cursor: pointer;
+    color: var(--text);
+    font-family: 'Chakra Petch', monospace;
+}
+
+.captcha-option:hover label {
+    color: var(--primary);
+}
+
+/* Ensure proper styling on smaller screens */
+@media (max-width: 480px) {
+    .captcha-flex {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+    }
+    
+    .captcha-problem {
+        text-align: center;
+    }
+    
+    .captcha-flex input[type="number"] {
+        width: 100%;
+    }
+}
+
+.difficulty-indicator {
+    font-size: 0.8em;
+    color: #D9A036;
+    margin-left: 8px;
+}
+
+.error-message {
+    color: #ff4444;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ff4444;
+    border-radius: 4px;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* Add these styles to your existing CSS */
+.scan-progress {
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--background);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    position: absolute;
+    transition: width 0.3s ease-in-out;
+    box-shadow: var(--glow);
+}
+
+.scan-status {
+    margin-top: 10px;
+    color: var(--text);
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: 'Chakra Petch', monospace;
+}
+
+/* Animation for progress bar */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.progress-fill {
+    animation: pulse 1.5s infinite;
+}
+
+.captcha-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.captcha-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 60px;
+    font-size: 0.9em;
+}
+
+.captcha-option:hover {
+    background: var(--surface);
+}
+
+.captcha-problem {
+    text-align: center;
+    margin-bottom: 8px;
+    font-family: 'Chakra Petch', monospace;
+    color: var(--text);
+}
+
+/* Make options display in a single row when possible */
+@media (min-width: 480px) {
+    .captcha-options {
+        flex-direction: row;
+    }
+}
+
+.back-button {
+    background: var(--primary);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Chakra Petch', monospace;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--glow);
+}

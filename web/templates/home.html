@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="scan-form-container">
+            <div class="waifu-container">
+                <img src="/static/imgs/waifu.gif" alt="ReconBubble Waifu" class="waifu">
+            </div>
+            <h1 class="glitch">
+                {{ .title }}
+                <span aria-hidden="true">{{ .title }}</span>
+                <span aria-hidden="true">{{ .title }}</span>
+            </h1>
+            {{ if .error }}
+            <div class="error-message">{{ .error }}</div>
+            <form action="/" method="GET" class="scan-form">
+                <button type="submit" class="back-button">Back</button>
+            </form>
+            {{ else }}
+            <form action="/scan" method="POST" class="scan-form">
+                <input type="text" name="domain" placeholder="example.com" required>
+                {{ if .captchaProblem }}
+                <div class="captcha-container">
+                    <div class="captcha-problem">{{ .captchaProblem }}</div>
+                    <div class="captcha-options">
+                        {{ range $index, $number := .captchaOptions }}
+                        <div class="captcha-option">
+                            <input type="checkbox" 
+                                   name="captcha_answer[]" 
+                                   id="option{{ $index }}" 
+                                   value="{{ $number }}" 
+                                   class="captcha-checkbox">
+                            <label for="option{{ $index }}">{{ $number }}</label>
+                        </div>
+                        {{ end }}
+                    </div>
+                    <input type="hidden" name="captcha_session_id" value="{{ .captchaSessionId }}">
+                </div>
+                {{ end }}
+                <button type="submit">Scan</button>
+            </form>
+            {{ end }}
+        </div>
+    </div>
+</body>
+
+</html>

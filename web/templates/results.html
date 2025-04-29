@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Scan Results - {{ .domain }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <div class="results-container">
+        <h1>Scan Results for {{ .domain }}</h1>
+
+        {{ if .error }}
+        <div class="error">{{ .error }}</div>
+        {{ else }}
+        <!-- Server Information Section -->
+        <div class="section">
+            <h2>Server Information</h2>
+            {{ with .results.ServerInfo }}
+            <div class="result-row">
+                <span class="result-label">IP Address:</span>
+                <span class="result-value">{{ .IP }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Server Type:</span>
+                <span class="result-value">{{ if .ServerType }}{{ .ServerType }}{{ else }}Not Detected{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">ASN:</span>
+                <span class="result-value">{{ if .ASN }}{{ .ASN }}{{ else }}Not Available{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">City:</span>
+                <span class="result-value">{{ .City }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Country:</span>
+                <span class="result-value">{{ .Country }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">ISP:</span>
+                <span class="result-value">{{ .ISP }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Coordinates:</span>
+                <span class="result-value">{{ printf "%.4f, %.4f" .Latitude .Longitude }}</span>
+            </div>
+            {{ end }}
+        </div>
+
+        <!-- 2. WAF Detection Section -->
+        <div class="section">
+            <h2>WAF Detection</h2>
+            {{ with .results.WAFInfo }}
+            <div class="result-row">
+                <span class="result-label">Status:</span>
+                <span class="result-value">
+                    {{ if .Detected }}
+                        <span class="present">Protected</span>
+                    {{ else }}
+                        <span class="missing">No WAF Detected</span>
+                    {{ end }}
+                </span>
+            </div>
+            {{ if .Detected }}
+            <div class="result-row">
+                <span class="result-label">WAF Type:</span>
+                <span class="result-value">
+                    <span class="waf-type">{{ .Type }}</span>
+                </span>
+            </div>
+            {{ if .Version }}
+            <div class="result-row">
+                <span class="result-label">Version:</span>
+                <span class="result-value">{{ .Version }}</span>
+            </div>
+            {{ end }}
+            {{ if .Details }}
+            <div class="result-row">
+                <span class="result-label">Additional Info:</span>
+                <span class="result-value details">{{ .Details }}</span>
+            </div>
+            {{ end }}
+            {{ end }}
+            {{ end }}
+        </div>
+
+        <!-- 3. SSL/TLS Information Section -->
+        <div class="section">
+            <h2>SSL/TLS Information</h2>
+            {{ with .results.SSLInfo }}
+            <div class="result-row">
+                <span class="result-label">Valid From:</span>
+                <span class="result-value">{{ .ValidFrom.Format "02 January 2006" }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Valid Until:</span>
+                <span class="result-value">{{ .ValidUntil.Format "02 January 2006" }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Issuer:</span>
+                <span class="result-value">{{ .Issuer }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">TLS Version:</span>
+                <span class="result-value">{{ .Version }}</span>
+            </div>
+            {{ else }}
+            <div class="result-row">
+                <span class="result-label">Status:</span>
+                <span class="result-value missing">No SSL/TLS information available</span>
+            </div>
+            {{ end }}
+        </div>
+
+        <!-- 4. Security Headers Section -->
+        <div class="section">
+            <h2>Security Headers</h2>
+            {{ with .results.SecurityHeaders }}
+            <div class="result-row">
+                <span class="result-label">HSTS:</span>
+                <span class="result-value">{{ if .HSTS }}<span class="present">Present</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">X-Frame-Options:</span>
+                <span class="result-value">{{ if .XFrameOptions }}<span class="present">{{ .XFrameOptions }}</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Content-Security-Policy:</span>
+                <span class="result-value">{{ if .CSP }}<span class="present">Present</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">X-Content-Type-Options:</span>
+                <span class="result-value">{{ if .XContentType }}<span class="present">{{ .XContentType }}</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Referrer-Policy:</span>
+                <span class="result-value">{{ if .ReferrerPolicy }}<span class="present">{{ .ReferrerPolicy }}</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Permissions-Policy:</span>
+                <span class="result-value">{{ if .PermissionsPolicy }}<span class="present">Present</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">X-XSS-Protection:</span>
+                <span class="result-value">{{ if .XSSProtection }}<span class="present">{{ .XSSProtection }}</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Strict Transport Policy:</span>
+                <span class="result-value">{{ if .StrictTransport }}<span class="present">{{ .StrictTransport }}</span>{{ else }}<span class="missing">Missing</span>{{ end }}</span>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+</body>
+
+</html>
